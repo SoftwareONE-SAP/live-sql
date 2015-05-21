@@ -1,0 +1,16 @@
+{
+  "name": "LiveSQL",
+  "version": "0.5.0",
+  "description": "LiveSQL is a realtime binlog tailer for realtime mysql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Pitt <rpitt@centiq.co.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter2": "^0.4.14",
+    "underscore": "^1.8.3",
+    "zongji": "^0.3.2"
+  }
+}

@@ -1,0 +1,847 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"opt",
+				"opt_tables"
+			],
+			[
+				"my",
+				"mysqlType"
+			],
+			[
+				"event",
+				"eventType"
+			],
+			[
+				"z",
+				"_z_opts"
+			],
+			[
+				"_z",
+				"_z_opts"
+			],
+			[
+				"on",
+				"_onBinLogEvent"
+			],
+			[
+				"My",
+				"MySQLSubscription"
+			],
+			[
+				"_",
+				"_z_opts"
+			],
+			[
+				"cons",
+				"constructs	@constructs"
+			],
+			[
+				"get",
+				"getEventName"
+			],
+			[
+				"Zon",
+				"ZongJiDiff (fn) [E]"
+			],
+			[
+				"Zo",
+				"ZongJiDiff (fn) [E]"
+			],
+			[
+				"before",
+				"beforeSend"
+			],
+			[
+				"be",
+				"beforeSend"
+			],
+			[
+				"Notifica",
+				"NotificationsCenter"
+			],
+			[
+				"depl",
+				"deployedAt"
+			],
+			[
+				"con",
+				"console (obj) [E]"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"ex",
+				"express            (obj) [E]"
+			],
+			[
+				"DDP",
+				"DDPConfig (obj) [E]"
+			],
+			[
+				"invo",
+				"invoice_id"
+			],
+			[
+				"access",
+				"accessTokenFromHeadersOnly"
+			],
+			[
+				"OTK",
+				"OTK_Helper"
+			],
+			[
+				"F",
+				"FileSaver  (fn)  [E]"
+			],
+			[
+				"prot",
+				"prototype (obj) [E]"
+			],
+			[
+				"_h",
+				"_hookes (obj) [E]"
+			],
+			[
+				"notif",
+				"NotificationsCenter"
+			],
+			[
+				"is",
+				"isNumber      (fn) [E]"
+			],
+			[
+				"acti",
+				"actions (fn) [E]"
+			],
+			[
+				"notifi",
+				"Notifications"
+			],
+			[
+				"getOp",
+				"getOptions (fn) [E]"
+			],
+			[
+				"isA",
+				"isArray       (fn) [E]"
+			],
+			[
+				"proto",
+				"prototype (?) [E]"
+			],
+			[
+				"N",
+				"Notifications (obj) [E]"
+			],
+			[
+				"FILTER",
+				"FILTER_FLAG_NO_PRIV_RANGE"
+			],
+			[
+				"iss",
+				"isset"
+			],
+			[
+				"SLE",
+				"SELECT"
+			],
+			[
+				"strt",
+				"strtolower"
+			],
+			[
+				"requi",
+				"requirePermission"
+			],
+			[
+				"perm",
+				"permissions"
+			],
+			[
+				"not",
+				"notification"
+			],
+			[
+				"noti",
+				"notifications"
+			],
+			[
+				"coll",
+				"_collection"
+			],
+			[
+				"n",
+				"pointer"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"S",
+				"SUCCESS"
+			],
+			[
+				"Not",
+				"Notifications"
+			],
+			[
+				"pro",
+				"proto	Prototype"
+			],
+			[
+				"name",
+				"namespace	@namespace"
+			],
+			[
+				"new",
+				"newEndpoints"
+			],
+			[
+				"client",
+				"client"
+			],
+			[
+				"add",
+				"additions"
+			],
+			[
+				"filter",
+				"filter_var"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"cli",
+				"client"
+			],
+			[
+				"cl",
+				"clients"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"remo",
+				"remote_id"
+			],
+			[
+				"ti",
+				"ticket"
+			],
+			[
+				"orga",
+				"organisation_context"
+			],
+			[
+				"thr",
+				"throw	Throw Exception"
+			],
+			[
+				"forbi",
+				"Forbidden"
+			],
+			[
+				"per",
+				"permissions"
+			],
+			[
+				"acc",
+				"account_id"
+			],
+			[
+				"userid",
+				"userid"
+			],
+			[
+				"Acc",
+				"AccessToken"
+			],
+			[
+				"ar",
+				"_arguements"
+			],
+			[
+				"eva",
+				"evaluate"
+			],
+			[
+				"Pha",
+				"PhantomRunner"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "examples/basic.js",
+			"settings":
+			{
+				"buffer_size": 1030,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/**\n * MySQLSubscription\n *\n * @description A node based binlog monitor that emits\n *              events when changes occure on\n *              tracked tables.\n *\n * @author Robert Pitt <rpitt@centiq.co.uk>\n * @copyright 2015 Centiq LTD\n * @license MIT\n */\n\n/**\n * Require dependancies\n */\nvar ZongJi 			= require(\"zongji\"),\n	_ 				= require(\"underscore\"),\n	EventEmitter 	= require(\"eventemitter2\").EventEmitter2\n	util 			= require(\"util\");\n\n/**\n * Export the module\n * @type {Manager}\n */\nexports = module.exports = Manager;\n\n/**\n * @class MySQL Subscription Manager\n * @param {Object} options Connection Object\n * @constructs ZongJi\n */\nfunction Manager(connOptions) {\n	/**\n	 * Call the parant constructor\n	 */\n	EventEmitter.call(this, {wildcard: true});\n\n	/**\n	 * Options object for ZongJi\n	 * @type {Object}\n	 */\n	this._z_opts = {\n		/**\n		 * Start at the end of the binlog\n		 * @type {Boolean}\n		 */\n		startAtEnd : true,\n\n		/**\n		 * Schema we are monitoring\n		 * @type {Object}\n		 */\n		includeSchema: {},\n\n		/**\n		 * Schema we are monitoring\n		 * @type {Object}\n		 */\n		excludeSchema: {},\n\n		/**\n		 * Events to track\n		 * @type {Array}\n		 */\n		includeEvents: [\n			\"tablemap\",\n			\"writerows\",\n			\"updaterows\",\n			\"deleterows\"\n		]\n	};\n\n	/**\n	 * Create a new ZongJi Instance\n	 * @type {ZongJi}\n	 */\n	this._z = new ZongJi(connOptions);\n\n	/**\n	 * Monitor all binlog events\n	 */\n	this._z.on(\"binlog\", this._onBinLogEvent.bind(this));\n	this._z.on(\"error\", this._onErrorEvent.bind(this));\n};\nutil.inherits(Manager, EventEmitter);\n\n/**\n * Subscript to a schema\n * @param  {String} database   Database\n * @param  {Array} opt_tables Optional tables to watch (Defaults to all)\n *\n * @todo Implement tables\n * @return void\n */\nManager.prototype.subscribe = function(database, opt_tables) {\n	if(!_.isArray(opt_tables)) {\n		opt_tables = true;\n	};\n\n	this._z_opts.includeSchema[database] = opt_tables;\n};\n\n/**\n * Unsubscribe from a database\n * @param  {String} database   Database\n * @param  {Array} opt_tables Optional tables to watch (Defaults to all)\n *\n * @todo Implement tables\n * @return void\n */\nManager.prototype.unsubscribe = function(database) {\n	if(database in this._z_opts.includeSchema){\n		delete this._z_opts.includeSchema[database];\n	}\n};\n\nManager.prototype._onBinLogEvent = function(event) {\n	/**\n	 * Extract the effected schema from the table map\n	 * @type {String}\n	 */\n	var schema = event.tableMap[event.tableId].parentSchema;\n\n	/**\n	 * Extract the table name from the event source data\n	 * @type {String}\n	 */\n	var table = event.tableMap[event.tableId].tableName;\n\n	/**\n	 * Trim\n	 */\n	var eventType = event.getEventName().replace(\"rows\", \"\");\n\n	/**\n	 * Declare the root namespace\n	 */\n	var RNS = [schema, table, eventType];\n\n	/**\n	 * Delcare self\n	 */\n	var self = this;\n\n	/**\n	 * Emit events for each modified rows\n	 *\n	 * @todo This may not be needed but as this library\n	 *       is subsription based, it seems good to have\n	 *       a per record event ratehr than a bulk operation.\n	 */\n	_.each(event.rows, function(row) {\n		self.emit(RNS, row, table, schema, eventType,event);\n	})\n};\n\n/**\n * Catch Errors here when thrown by ZongJi\n * @param  {Error} e Error Instance\n */\nManager.prototype._onErrorEvent = function(e) {\n	console.log(\"Got error\", e);\n};\n\n/**\n * Start monitoring\n */\nManager.prototype.start = function() {\n	return this._z.start(this._z_opts);\n};\n\n/**\n * Stop monitoring\n */\nManager.prototype.stop = function() {\n	return this._z.stop();\n};\n",
+			"file": "lib/manager.js",
+			"file_size": 3535,
+			"file_write_time": 130771394690000000,
+			"settings":
+			{
+				"buffer_size": 3466,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "node_modules/zongji/lib/binlog_event.js",
+			"settings":
+			{
+				"buffer_size": 7490,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.js",
+			"settings":
+			{
+				"buffer_size": 313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "node_modules/zongji/example.js",
+			"settings":
+			{
+				"buffer_size": 413,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 75.0,
+		"last_filter": "bash",
+		"selected_items":
+		[
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"previ",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			],
+			[
+				"markdown",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"node",
+				"SublimeREPL: Node"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/rpitt/mount",
+		"/home/rpitt/mount/lib",
+		"/home/rpitt/mount/node_modules",
+		"/home/rpitt/mount/node_modules/zongji/lib",
+		"/home/rpitt/mount/node_modules/zongji/node_modules"
+	],
+	"file_history":
+	[
+		"/home/rpitt/mount/MySQLSubscription/lib/manager.js",
+		"/home/rpitt/mount/lib/manager.js",
+		"/home/rpitt/mount/old/packages/tickets/tickets.js",
+		"/home/rpitt/mount/MySQLSubscription/examples/basic.js",
+		"/home/rpitt/mount/MySQLSubscription/node_modules/zongji/lib/binlog_event.js",
+		"/home/rpitt/mount/index.js",
+		"/home/rpitt/mount/lib/sync.js",
+		"/home/rpitt/mount/MySQLSubscription/index.js",
+		"/home/rpitt/mount/packages/tickets/package.js",
+		"/home/rpitt/mount/packages/tickets/tickets.js",
+		"/home/rpitt/Projects/sync/packages/tickets/package.js",
+		"/home/rpitt/mount/packages/schemas/package.js",
+		"/home/rpitt/Projects/sync/packages/schemas/package.js",
+		"/home/rpitt/Projects/sync/packages/schemas/collections/user.js",
+		"/home/rpitt/Projects/sync/packages/tickets/tickets.js",
+		"/home/rpitt/Projects/sync/packages/schemas/collections/user_country.js",
+		"/home/rpitt/Projects/sync/packages/schemas/collections/user_profile.js",
+		"/home/rpitt/Projects/sync/packages/schemas/bootstrap.js",
+		"/home/rpitt/Projects/oauth2/index.js",
+		"/home/rpitt/Projects/oauth2/lib/grants/index.js",
+		"/home/rpitt/Projects/oauth2/lib/grants/basegrant.js",
+		"/home/rpitt/Projects/oauth2/lib/models/token.js",
+		"/home/rpitt/Projects/meteor/packages/http/httpcall_client.js",
+		"/home/rpitt/Projects/meteor/packages/http/httpcall_server.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/ui/tray/tray.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/ui/tray/tray.html",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/controller.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center/lib/common/notification.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/app-routes/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserDropdown/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center/lib/common/center.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/routes.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/created.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/destroyed.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/events.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-notifications/notifications/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/NavHeader/template.html",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:config/config.js",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:core/package.js",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:collections/package.js",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:collections/connections/platform.js",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:collections/collections/accounts.js",
+		"/home/rpitt/Projects/ddp-server/packages/ddp:config/package.js",
+		"/home/rpitt/Projects/ddp-server/ddp-server.css",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:ui/package.js",
+		"/home/rpitt/mount/shared/models/credentials.php",
+		"/home/rpitt/mount/applications/api/controllers/erp/invoices.php",
+		"/home/rpitt/mount/applications/api/includes/controllers/api.php",
+		"/home/rpitt/mount/migrations/20140331091947_account_timestamp.php",
+		"/home/rpitt/mount/migrations/20150506132120_add_created_to_credentials_table.php",
+		"/home/rpitt/mount/migrations/20150506132120_add_meta_to_credentials_column.php",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:filesaver/lib/filesaver/FileSaver.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:filesaver/filesaver-tests.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:theme/semantic.css",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-organisations/server/organisations.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:hooke/hooke-http.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/client/dropdown/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/client/dropdown/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/client/notification/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:theme/components/menu.css",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/hooks/sirportly.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:hooke/hooke.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-organisations/client/organisations.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:hooke/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/client/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/hooke/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/hooke/hooke.js",
+		"/home/rpitt/Projects/optiq-v2/packages/hooke/hooke-http.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/centiq:notifications-center-semanticui/client/dropdown/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/common/notification.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/common/center.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/common/bootstrap.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/templates/notification/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/templates/dropdown/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/client/notification.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/README.md",
+		"/home/rpitt/Downloads/qa-pri",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/server/methods.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/server/publications.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-roles/server/on-login.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/server/center.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/templates/notification/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/server/permissions.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/templates/dropdown/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-notifications/client/templates/dropdown/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/client/center.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/client/subscription.js",
+		"/home/rpitt/.config/sublime-text-3/Packages/User/Markdown.sublime-settings",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/client/notifications.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/tests/message.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/events.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/common/message.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/notifications.js",
+		"/home/rpitt/Projects/optiq-v2/packages/lib-upserter/package.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserNotifications/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserNotifications/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserNotifications/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/route-supportdesk/Supportdesk/Tickets/List/controller.js",
+		"/home/rpitt/Projects/optiq-v2/packages/route-supportdesk/Supportdesk/Tickets/List/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/OrganisationDropdown/template.html",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserDropdown/events.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserDropdown/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/OrganisationDropdown/events.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/UserDropdown/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/NavHeader/events.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/NavHeader/helpers.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/NavHeader/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/app-base-components/OrganisationDropdown/rendered.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/common/notifications.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/server/notifications.js",
+		"/home/rpitt/Projects/optiq-v2/packages/notifications/lib/client/message.js",
+		"/home/rpitt/mount/.travis.yml",
+		"/home/rpitt/mount/applications/api/controllers/organisations.php",
+		"/home/rpitt/mount/applications/api/controllers/accounts.php",
+		"/home/rpitt/mount/applications/api/controllers/ac.php",
+		"/home/rpitt/mount/applications/api/controllers/support/tickets.php",
+		"/home/rpitt/mount/applications/api/controllers/support/objects.php",
+		"/home/rpitt/mount/applications/api/controllers/profiles.php",
+		"/home/rpitt/mount/applications/api/controllers/erp/contracts.php"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"asyncBlock",
+			"home",
+			"valida",
+			"yts",
+			"centiq_accounts_([a-zA-Z]+)",
+			"centiq_accounts_",
+			"centiq_.*?_",
+			"centiq_portal_([a-zA-Z]*?)",
+			"_validateAccessToken",
+			"centiq_portal_get",
+			"centiq_port",
+			"centiq_",
+			"credentials",
+			"nav",
+			"Menu items in the dropdown and side menus.",
+			"height",
+			"impor",
+			"max-he",
+			"inv",
+			"inverted",
+			"Hookes",
+			"id",
+			"_recipientId",
+			"_recipient",
+			"Notifications",
+			"notifications",
+			"Notifications",
+			"UserNotifications",
+			"options",
+			"_options",
+			"{\n",
+			"valdiateSecurity",
+			"security",
+			"_filtered_input",
+			"_detectIP",
+			">\n",
+			"resume",
+			"registerLoginHandler",
+			"register",
+			"hashedToken",
+			"_list",
+			"$this->requirePermission",
+			"_arguements",
+			"_arguments"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"centiq_api_$1",
+			"$1",
+			"$0"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "examples/basic.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1030,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								267,
+								267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "lib/manager.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3466,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								344,
+								344
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "node_modules/zongji/lib/binlog_event.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7490,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4805,
+								4805
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2430.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								313,
+								313
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "node_modules/zongji/example.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								310,
+								310
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 288.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
