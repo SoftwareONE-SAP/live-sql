@@ -2,7 +2,6 @@
 
 As web application trends are growing towards stateful and real time applications, more applicable database engines such as MongoDB, Redis, CouchDB are being chosen to supply the data, which is great but what does that mean for database engines such as MySQL which millions of applications have been built around.
 
-
 ## So how does it work?
 LiveSql is a library that uses varius componants such as [ZongJi](https://github.com/nevill/zongji) and [node-mysql](https://github.com/felixge/node-mysql/) to simulate a slave replication server.
 
@@ -10,7 +9,7 @@ LiveSql is a library that uses varius componants such as [ZongJi](https://github
 
 [Source](https://dev.mysql.com/doc/refman/5.0/en/binary-log.html)
 
-In the case of LiveSql, were actually just eaves dropping on the binlog events, which enables us to produce event's for the follwoing:
+In the case of LiveSql, were actually just eavesdropping on the binlog events, which enables us to produce event's for the follwoing:
 
 - Insert statements.
 - Update statements.
@@ -19,7 +18,8 @@ In the case of LiveSql, were actually just eaves dropping on the binlog events, 
 **Note:** With update statements, you get 2 objects, the row before the object was modified and the row after it was modfied, allowing you to see waht columns was effected.
 
 ## Prerequisites
-In order for you to be able to receive binlog events you must have a mysql server that's configured for binlog, You can enable binlogging via `my.cnf` like so:
+
+- **1.** Configure MySQL for replication.
 
 ```inf
 # binlog config
@@ -32,18 +32,14 @@ max_binlog_size  = 100M          # optional
 binlog_format    = row
 ```
 
-and restart your MySQL Server.
+and then restart your MySQL Server.
 
-Secondly you need a user account with replciation provileges, we suggest you create a new MySQL user that has access to the tables you will be monitoring.
-
-You can then grant replication privs to that account like so:
-
+- **2.** Create a new MySQL user.
+- **3.** Give the new account access to the databases you wish to log.
+- **4.** Grant replication privileges to the new user like so:
 ```sql
 GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'replclient'@'localhost'
 ```
-
-## Requirements
-- Node.js v0.10+
 
 ## Example
 
@@ -105,6 +101,9 @@ manager.on("blog.*.*", function(event){
 manager.start();
 ```
 
+## Requirements
+- Node.js v0.10+
+
 ## Contributions
 
 We highly encourage contributions from the community, please feel free to create feature requests, pull requests and issues.
@@ -112,4 +111,4 @@ We highly encourage contributions from the community, please feel free to create
 Please also note, the core of this project is [ZongJi](https://github.com/nevill/zongji), so if your feature/pr/issue is for that area of the project, please send ot to ZongJi.
 
 ## License
-#### [MIT](http://opensource.org/licenses/MIT)
+- [MIT](http://opensource.org/licenses/MIT)
