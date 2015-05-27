@@ -1,5 +1,5 @@
 {
-  "name": "LiveSQL",
+  "name": "live-sql",
   "version": "0.5.0",
   "description": "LiveSQL is a realtime binlog tailer for realtime mysql",
   "main": "index.js",
