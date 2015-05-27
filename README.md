@@ -1,15 +1,22 @@
 # LiveSql
 
-The LiveSQL project aims to create a simple and lightweight interface on to of [ZongJi](https://github.com/nevill/zongji)
+As web application trends are growing towards stateful and real time applications, more applicable database engines such as MongoDB, Redis, CouchDB are being chosen to supply the data, which is great but what does that mean for database engines such as MySQL which millions of applications have been built around.
 
-The combination of the two allows you to connect to a mysql server as a replication client and recieve real time updates of changes to your tables.
 
-## How does it work
-LiveSQL works by connecting to a mysql server as a replication slave and receiving MySQL BinLog events.
+## So how does it work?
+LiveSql is a library that uses varius componants such as [ZongJi](https://github.com/nevill/zongji) and [node-mysql](https://github.com/felixge/node-mysql/) to simulate a slave replication server.
 
-Binlog events are then decoded and transformed into Javascript Object.
+> For replication, the binary log on a master replication server provides a record of the data changes to be sent to slave servers. The master server sends the events contained in its binary log to its slaves, which execute those events to make the same data changes that were made on the master.
 
-The core of this project is [ZongJi](https://github.com/nevill/zongji), ZongJi does all the heavy lifting and this project tries to provide a more intuative interface.
+[Source](https://dev.mysql.com/doc/refman/5.0/en/binary-log.html)
+
+In the case of LiveSql, were actually just eaves dropping on the binlog events, which enables us to produce event's for the follwoing:
+
+- Insert statements.
+- Update statements.
+- Delete statements.
+
+**Note:** With update statements, you get 2 objects, the row before the object was modified and the row after it was modfied, allowing you to see waht columns was effected.
 
 ## Prerequisites
 In order for you to be able to receive binlog events you must have a mysql server that's configured for binlog, You can enable binlogging via `my.cnf` like so:
