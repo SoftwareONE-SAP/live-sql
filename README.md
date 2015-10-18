@@ -1,21 +1,21 @@
 # LiveSql
 
-As web application trends are growing towards stateful and real time applications, more applicable database engines such as MongoDB, Redis, CouchDB are being chosen to supply the data, which is great but what does that mean for database engines such as MySQL which millions of applications have been built around.
+As web application trends are growing towards stateful and real time applications, more applicable database engines such as MongoDB, Redis, CouchDB are being chosen to supply the data. This is great, but what does that mean for database engines such as MySQL around which millions of applications have been built?
 
 ## So how does it work?
-LiveSql is a library that uses varius componants such as [ZongJi](https://github.com/nevill/zongji) and [node-mysql](https://github.com/felixge/node-mysql/) to simulate a slave replication server.
+LiveSql is a library that uses varius components such as [ZongJi](https://github.com/nevill/zongji) and [node-mysql](https://github.com/felixge/node-mysql/) to simulate a slave replication server.
 
 > For replication, the binary log on a master replication server provides a record of the data changes to be sent to slave servers. The master server sends the events contained in its binary log to its slaves, which execute those events to make the same data changes that were made on the master.
 
 [Source](https://dev.mysql.com/doc/refman/5.0/en/binary-log.html)
 
-In the case of LiveSql, were actually just eavesdropping on the binlog events, which enables us to produce event's for the follwoing:
+In the case of LiveSql, were actually just eavesdropping on the binlog events, which enables us to produce events for the follwoing:
 
 - Insert statements.
 - Update statements.
 - Delete statements.
 
-**Note:** With update statements, you get 2 objects, the row before the object was modified and the row after it was modfied, allowing you to see waht columns was effected.
+**Note:** With update statements, you get 2 objects, the row before the object was modified and the row after it was modfied, allowing you to see what columns were affected.
 
 ## Prerequisites
 
@@ -108,7 +108,7 @@ manager.start();
 
 We highly encourage contributions from the community, please feel free to create feature requests, pull requests and issues.
 
-Please also note, the core of this project is [ZongJi](https://github.com/nevill/zongji), so if your feature/pr/issue is for that area of the project, please send ot to ZongJi.
+Please also note, the core of this project is [ZongJi](https://github.com/nevill/zongji), so if your feature/pr/issue is for that area of the project, please send it to ZongJi.
 
 ## License
 - [MIT](http://opensource.org/licenses/MIT)
